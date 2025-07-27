@@ -44,6 +44,7 @@ module Svix
       end
 
       uri = URI(options.server_url || regional_url)
+      uri.path.chomp!("/")
       api_client = SvixHttpClient.new(auth_token, uri)
 
       @application = Application.new(api_client)

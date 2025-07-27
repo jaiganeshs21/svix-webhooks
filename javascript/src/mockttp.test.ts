@@ -20,6 +20,18 @@ const IngestSourceOutCron = `{"type":"cron","config":{"schedule":"hello","payloa
 const IngestSourceOutGeneric = `{"type":"generic-webhook","config":{},"id":"src_2yZwUhtgs5Ai8T9yRQJXA","uid":"unique-identifier","name":"string","ingestUrl":"http://example.com","createdAt":"2019-08-24T14:15:22Z","updatedAt":"2019-08-24T14:15:22Z"}`;
 const mockServer = mockttp.getLocal();
 
+describe("Svix", () => {
+    it("should set the server url", () => {
+        const svix = new Svix("key", { serverUrl: "http://localhost:8000" });
+        expect((svix as any).requestCtx.baseUrl).toBe("http://localhost:8000");
+    });
+
+    it("should set the server url with a trailing slash", () => {
+        const svix = new Svix("key", { serverUrl: "http://localhost:8000/" });
+        expect((svix as any).requestCtx.baseUrl).toBe("http://localhost:8000");
+    });
+});
+
 describe("mockttp tests", () => {
   beforeEach(async () => await mockServer.start(0));
   afterEach(async () => await mockServer.stop());

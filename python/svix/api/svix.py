@@ -70,6 +70,8 @@ class ClientBase:
             regional_url = "https://api.au.svix.com"
 
         host = options.server_url or regional_url or DEFAULT_SERVER_URL
+        if host.endswith("/"):
+            host = host[:-1]
         client = AuthenticatedClient(
             base_url=host,
             token=auth_token,

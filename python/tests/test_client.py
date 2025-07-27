@@ -15,8 +15,17 @@ from svix.api import (
     EventTypeOut,
     MessageIn,
     Svix,
+    SvixOptions,
 )
 from svix.webhooks import Webhook
+
+
+def test_svix_options_server_url() -> None:
+    svix = Svix("key", SvixOptions(server_url="http://localhost:8000"))
+    assert svix._client.base_url == "http://localhost:8000"
+
+    svix = Svix("key", SvixOptions(server_url="http://localhost:8000/"))
+    assert svix._client.base_url == "http://localhost:8000"
 
 
 def _gen_uuid(name: str) -> str:

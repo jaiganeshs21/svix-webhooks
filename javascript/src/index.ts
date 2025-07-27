@@ -49,7 +49,10 @@ export class Svix {
 
   public constructor(token: string, options: SvixOptions = {}) {
     const regionalUrl = REGIONS.find((x) => x.region === token.split(".")[1])?.url;
-    const baseUrl: string = options.serverUrl ?? regionalUrl ?? "https://api.svix.com";
+    let baseUrl: string = options.serverUrl ?? regionalUrl ?? "https://api.svix.com";
+    if (baseUrl.endsWith("/")) {
+        baseUrl = baseUrl.slice(0, -1);
+    }
 
     this.requestCtx = { baseUrl, token, timeout: options.requestTimeout };
   }
